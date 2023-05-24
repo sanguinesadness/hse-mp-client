@@ -1,11 +1,11 @@
 import { Logo } from '../logo';
 import { MarketplaceSelect } from '../marketplace-select';
 import { NavigationMenu } from '../navigation-menu';
-import { appHeaderStyle } from './app-header.style';
+import { headerStyle as style } from './header.style';
 
-export const AppHeader = (): JSX.Element => {
+export const Header = (): JSX.Element => {
   return (
-    <div className={appHeaderStyle.wrapper}>
+    <div className={style.wrapper}>
       <Logo />
       <NavigationMenu />
       <MarketplaceSelect />

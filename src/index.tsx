@@ -1,8 +1,7 @@
 import { css, cx } from '@emotion/css';
 import { ColorsBasicEnum, FontsBasic, RoutesEnum } from 'consts';
 import 'index.scss';
-import { HomePage } from 'pages';
-import { ClientRootPage } from 'pages/client-root-page';
+import { ClientRootPage } from 'pages';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
@@ -10,7 +9,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 const router = createBrowserRouter([
   {
     path: RoutesEnum.ROOT,
-    element: <HomePage />
+    element: <ClientRootPage route={RoutesEnum.HOME} />
   },
   {
     path: RoutesEnum.HOME,
@@ -35,7 +34,6 @@ const appStyle = cx(
   css`
     color: ${ColorsBasicEnum.PRIMARY};
     font-size: 16px;
-    padding: 0 120px;
   `
 );
 

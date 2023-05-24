@@ -6,7 +6,7 @@ import {
 } from 'consts';
 import { useState } from 'react';
 import { redirect } from 'utils/redirect';
-import { marketplaceSelectStyle } from './marketplace-select.style';
+import { marketplaceSelectStyle as style } from './marketplace-select.style';
 
 const handleImageClick = (id: MarketplacesEnum) => () => {
   const url = MarketplaceTextIconMap[id].url;
@@ -22,16 +22,15 @@ export const MarketplaceSelect = (): JSX.Element => {
   };
 
   return (
-    <div className={marketplaceSelectStyle.wrapper}>
-      <div className={marketplaceSelectStyle.list}>
+    <div className={style.wrapper}>
+      <div className={style.list}>
         {Object.entries(MarketplaceTextIconMap).map(
           ([id, info]: [string, TMarketplaceInfo]) => (
             <div
               key={id}
               onClick={handleMarketplaceChange(id as MarketplacesEnum)}
-              className={cx(marketplaceSelectStyle.listItem.default, {
-                [marketplaceSelectStyle.listItem.selected]:
-                  id === selectedMarketplace
+              className={cx(style.listItem.default, {
+                [style.listItem.selected]: id === selectedMarketplace
               })}>
               {info.text}
             </div>
@@ -39,10 +38,10 @@ export const MarketplaceSelect = (): JSX.Element => {
         )}
       </div>
       <div
-        className={marketplaceSelectStyle.imgWrapper}
+        className={style.imgWrapper}
         onClick={handleImageClick(selectedMarketplace)}>
         <img
-          className={marketplaceSelectStyle.img}
+          className={style.img}
           src={require(`assets/logos/${MarketplaceTextIconMap[selectedMarketplace].icon}`)}
         />
       </div>

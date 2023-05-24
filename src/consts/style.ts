@@ -22,3 +22,10 @@ export const FontsBasic = {
     font-family: 'Rubik', sans-serif;
   `
 };
+
+export const HEADER_HEIGHT = '100px';
+export const FOOTER_HEIGHT = '70px';
+
+export const DEFAULT_SIDE_PADDING = '150px';
+
+export const SMOOTH_BOUNCE_EASE = 'cubic-bezier(0.52, -0.38, 0.49, 1.31)';

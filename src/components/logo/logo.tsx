@@ -3,7 +3,7 @@ import { ReactComponent as LogoIcon } from 'assets/logos/hse-mp.svg';
 import { RoutesEnum } from 'consts';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { logoStyle } from './logo.style';
+import { logoStyle as style } from './logo.style';
 
 export const Logo = (): JSX.Element => {
   const [hovered, setHovered] = useState<boolean>(false);
@@ -23,14 +23,14 @@ export const Logo = (): JSX.Element => {
 
   return (
     <div
-      className={logoStyle.wrapper}
+      className={style.wrapper}
       onClick={handleLogoClick}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}>
-      <LogoIcon className={logoStyle.icon} />
+      <LogoIcon className={style.icon} />
       <span
-        className={cx(logoStyle.text.default, {
-          [logoStyle.text.hover]: hovered
+        className={cx(style.text.default, {
+          [style.text.hover]: hovered
         })}>
         HSE MP
       </span>
