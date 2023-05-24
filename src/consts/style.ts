@@ -6,7 +6,8 @@ export enum ColorsBasicEnum {
   PRIMARY = '#0A293A',
   SUCCESS_GREEN = '#13D38E',
   WHITE = '#FFFFFF',
-  BLACK = '#000000'
+  BLACK = '#000000',
+  TRANSPARENT = 'transparent'
 }
 
 export enum ColorsShadesEnum {
