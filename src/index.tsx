@@ -1,19 +1,35 @@
+import { css, cx } from '@emotion/css';
+import { ColorsBasicEnum, FontsBasic, Routes } from 'consts';
+import 'index.scss';
+import { HomePage } from 'pages';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
-const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
+const router = createBrowserRouter([
+  {
+    path: Routes.ROOT,
+    element: <HomePage />
+  },
+  {
+    path: Routes.HOME,
+    element: <HomePage />
+  }
+]);
+
+const appStyle = cx(
+  FontsBasic.RUBIK,
+  css`
+    color: ${ColorsBasicEnum.PRIMARY};
+    font-size: 16px;
+    padding: 0 120px;
+  `
 );
-root.render(
+
+ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
-    <App />
+    <div className={appStyle}>
+      <RouterProvider router={router} />
+    </div>
   </React.StrictMode>
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
