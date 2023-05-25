@@ -6,7 +6,7 @@ import { headerStyle as style } from './header.style';
 export const Header = (): JSX.Element => {
   return (
     <div className={style.wrapper}>
-      <Logo />
+      <Logo size="small" />
       <NavigationMenu />
       <MarketplaceSelect />
     </div>

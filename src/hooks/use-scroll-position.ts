@@ -6,13 +6,13 @@ type TScrollPosition = {
   percent: number;
 };
 
-const scrollHeight = document.scrollingElement?.scrollHeight ?? 0;
-const clientHeight = document.scrollingElement?.clientHeight ?? 0;
-const maxScrollPos = scrollHeight - clientHeight;
-
 export function useScrollPosition(): TScrollPosition {
   const [scrollPos, setScrollPos] = useState<number>(window.scrollY);
   const [scrollPercent, setScrollPercent] = useState<number>(0);
+
+  const scrollHeight = document.scrollingElement?.scrollHeight ?? 0;
+  const clientHeight = document.scrollingElement?.clientHeight ?? 0;
+  const maxScrollPos = scrollHeight - clientHeight;
 
   const handleScroll = () => {
     setScrollPos(window.scrollY);

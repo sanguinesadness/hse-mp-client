@@ -1,7 +1,7 @@
 import { css, cx } from '@emotion/css';
 import { ColorsBasicEnum, FontsBasic, RoutesEnum } from 'consts';
 import 'index.scss';
-import { ClientRootPage } from 'pages';
+import { AuthPage, ClientRootPage } from 'pages';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
@@ -9,7 +9,11 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 const router = createBrowserRouter([
   {
     path: RoutesEnum.ROOT,
-    element: <ClientRootPage route={RoutesEnum.HOME} />
+    element: <AuthPage />
+  },
+  {
+    path: RoutesEnum.AUTH,
+    element: <AuthPage />
   },
   {
     path: RoutesEnum.HOME,

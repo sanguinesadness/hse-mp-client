@@ -1,10 +1,5 @@
 import { css } from '@emotion/css';
-import {
-  ColorsBasicEnum,
-  DEFAULT_SIDE_PADDING,
-  FOOTER_HEIGHT,
-  SMOOTH_BOUNCE_EASE
-} from 'consts';
+import { ColorsBasicEnum, DEFAULT_SIDE_PADDING, FOOTER_HEIGHT } from 'consts';
 
 export const footerStyle = {
   wrapper: css`
@@ -27,25 +22,5 @@ export const footerStyle = {
   projectTitle: css`
     max-width: 400px;
   `,
-  copyright: css``,
-  socialButtons: css`
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 20px;
-  `,
-  socialButton: css`
-    height: 30px;
-    width: 50px;
-    cursor: pointer;
-    transition: 200ms ${SMOOTH_BOUNCE_EASE} all;
-
-    &:hover {
-      transform: scale(0.95);
-    }
-  `,
-  socialButtonIcon: css`
-    width: 100%;
-    height: 100%;
-  `
+  copyright: css``
 };

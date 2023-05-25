@@ -9,15 +9,20 @@ export const logoStyle = {
     gap: 16px;
     cursor: pointer;
   `,
-  icon: css`
-    height: 50px;
-    width: 50px;
-  `,
+  icon: {
+    small: css`
+      height: 50px;
+      width: 50px;
+    `,
+    large: css`
+      height: 70px;
+      width: 70px;
+    `
+  },
   text: {
     default: cx(
       FontsBasic.BUNGEE,
       css`
-        font-size: 18px;
         background: linear-gradient(
           90deg,
           ${ColorsBasicEnum.LIME_GREEN} -29.57%,
@@ -28,6 +33,12 @@ export const logoStyle = {
         transition: 0.7s ease all;
       `
     ),
+    small: css`
+      font-size: 18px;
+    `,
+    large: css`
+      font-size: 24px;
+    `,
     hover: css`
       background-position-x: 69px;
     `

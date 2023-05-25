@@ -5,12 +5,16 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { logoStyle as style } from './logo.style';
 
-export const Logo = (): JSX.Element => {
+type TLogoProps = {
+  size: 'large' | 'small';
+};
+
+export const Logo = ({ size }: TLogoProps): JSX.Element => {
   const [hovered, setHovered] = useState<boolean>(false);
   const navigate = useNavigate();
 
   const handleLogoClick = (): void => {
-    navigate(RoutesEnum.HOME);
+    navigate(RoutesEnum.ROOT);
   };
 
   const handleMouseEnter = (): void => {
@@ -27,9 +31,16 @@ export const Logo = (): JSX.Element => {
       onClick={handleLogoClick}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}>
-      <LogoIcon className={style.icon} />
+      <LogoIcon
+        className={cx({
+          [style.icon.small]: size === 'small',
+          [style.icon.large]: size === 'large'
+        })}
+      />
       <span
         className={cx(style.text.default, {
+          [style.text.small]: size === 'small',
+          [style.text.large]: size === 'large',
           [style.text.hover]: hovered
         })}>
         HSE MP
