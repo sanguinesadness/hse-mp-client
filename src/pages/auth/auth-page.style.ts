@@ -7,5 +7,8 @@ export const authPageStyle = {
   `,
   content: css`
     min-height: calc(100vh - ${AUTH_HEADER_HEIGHT} - ${AUTH_FOOTER_HEIGHT});
+    display: flex;
+    align-items: center;
+    justify-content: center;
   `
 };

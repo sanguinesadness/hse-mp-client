@@ -1,8 +1,9 @@
 import { RoutesEnum } from 'consts';
-import { authPageStyle as style } from 'pages/auth/auth-page.style';
-import { AuthFooter } from 'pages/auth/components/auth-footer';
 import { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { authPageStyle as style } from './auth-page.style';
+import { AuthFooter } from './components/auth-footer';
+import { AuthForm } from './components/auth-form';
 import { AuthHeader } from './components/auth-header';
 
 export const AuthPage = (): JSX.Element => {
@@ -18,7 +19,9 @@ export const AuthPage = (): JSX.Element => {
   return (
     <div className={style.wrapper}>
       <AuthHeader />
-      <div className={style.content}>content</div>
+      <div className={style.content}>
+        <AuthForm />
+      </div>
       <AuthFooter />
     </div>
   );

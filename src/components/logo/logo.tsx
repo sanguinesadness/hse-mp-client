@@ -1,7 +1,8 @@
 import { cx } from '@emotion/css';
 import { ReactComponent as LogoIcon } from 'assets/logos/hse-mp.svg';
 import { RoutesEnum } from 'consts';
-import { useState } from 'react';
+import { useMouseHover } from 'hooks';
+import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { logoStyle as style } from './logo.style';
 
@@ -10,27 +11,27 @@ type TLogoProps = {
 };
 
 export const Logo = ({ size }: TLogoProps): JSX.Element => {
-  const [hovered, setHovered] = useState<boolean>(false);
+  const wrapperRef = useRef<HTMLDivElement>(null);
+  const textRef = useRef<HTMLSpanElement>(null);
+
+  const [textBgPosition, setTextBgPosition] = useState<number>(0);
   const navigate = useNavigate();
+  const isHovered = useMouseHover(wrapperRef);
 
   const handleLogoClick = (): void => {
     navigate(RoutesEnum.ROOT);
   };
 
-  const handleMouseEnter = (): void => {
-    setHovered(true);
-  };
-
-  const handleMouseLeave = (): void => {
-    setHovered(false);
-  };
+  useEffect(() => {
+    if (textRef.current && isHovered) {
+      setTextBgPosition(textRef.current.clientWidth);
+    } else {
+      setTextBgPosition(0);
+    }
+  }, [isHovered]);
 
   return (
-    <div
-      className={style.wrapper}
-      onClick={handleLogoClick}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}>
+    <div ref={wrapperRef} className={style.wrapper} onClick={handleLogoClick}>
       <LogoIcon
         className={cx({
           [style.icon.small]: size === 'small',
@@ -38,11 +39,14 @@ export const Logo = ({ size }: TLogoProps): JSX.Element => {
         })}
       />
       <span
+        ref={textRef}
         className={cx(style.text.default, {
           [style.text.small]: size === 'small',
-          [style.text.large]: size === 'large',
-          [style.text.hover]: hovered
-        })}>
+          [style.text.large]: size === 'large'
+        })}
+        style={{
+          backgroundPositionX: textBgPosition
+        }}>
         HSE MP
       </span>
     </div>

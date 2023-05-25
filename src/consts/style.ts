@@ -11,7 +11,8 @@ export enum ColorsBasicEnum {
 }
 
 export enum ColorsShadesEnum {
-  GRAY_400 = '#E8E8E8'
+  GRAY_400 = '#E8E8E8',
+  GRAY_600 = '#adadad'
 }
 
 export const FontsBasic = {
