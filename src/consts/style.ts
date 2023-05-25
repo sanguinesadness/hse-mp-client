@@ -24,6 +24,7 @@ export const FontsBasic = {
 };
 
 export const HEADER_HEIGHT = '100px';
+export const SECTION_HEADER_HEIGHT = '70px';
 export const FOOTER_HEIGHT = '70px';
 
 export const DEFAULT_SIDE_PADDING = '150px';

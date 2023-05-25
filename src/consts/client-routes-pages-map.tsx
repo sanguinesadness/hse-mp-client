@@ -13,3 +13,10 @@ export const ClientRoutesPagesMap: Record<TClientRoutes, JSX.Element> = {
   [RoutesEnum.ANALYTICS]: <AnalyticsPage />,
   [RoutesEnum.WAREHOUSES]: <WarehousesPage />
 };
+
+export const ClientRoutesNamesMap: Record<TClientRoutes, string> = {
+  [RoutesEnum.HOME]: 'Главная',
+  [RoutesEnum.PRODUCTS]: 'Товары',
+  [RoutesEnum.WAREHOUSES]: 'Склады',
+  [RoutesEnum.ANALYTICS]: 'Аналитика'
+};
