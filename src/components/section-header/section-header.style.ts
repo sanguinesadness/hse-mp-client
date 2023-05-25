@@ -15,13 +15,15 @@ export const sectionHeaderStyle = {
       ${ColorsBasicEnum.LIME_GREEN} 117.42%
     );
     height: ${SECTION_HEADER_HEIGHT};
+    position: sticky;
+    top: 0;
+  `,
+  innerWrapper: css`
     padding: 0 ${DEFAULT_SIDE_PADDING};
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    position: sticky;
-    top: 0;
   `,
   title: css`
     color: ${ColorsBasicEnum.WHITE};

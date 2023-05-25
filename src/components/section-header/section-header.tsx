@@ -1,4 +1,5 @@
 import { ReactComponent as CaretDownIcon } from 'assets/icons/caret-down.svg';
+import { ScrollProgressBar } from '../scroll-progress-bar';
 import { sectionHeaderStyle as style } from './section-header.style';
 
 type TSectionHeaderProps = {
@@ -17,10 +18,14 @@ export const SectionHeader = ({
 }: TSectionHeaderProps): JSX.Element => {
   return (
     <div className={style.wrapper}>
-      <div className={style.title}>HSE MP — {pageName}</div>
-      <div className={style.caretButton} onClick={handleCaretButtonClick}>
-        <CaretDownIcon className={style.caretIcon} />
+      <ScrollProgressBar />
+      <div className={style.innerWrapper}>
+        <div className={style.title}>HSE MP — {pageName}</div>
+        <div className={style.caretButton} onClick={handleCaretButtonClick}>
+          <CaretDownIcon className={style.caretIcon} />
+        </div>
       </div>
+      <ScrollProgressBar />
     </div>
   );
 };
