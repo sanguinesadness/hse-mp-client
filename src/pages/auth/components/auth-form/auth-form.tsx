@@ -1,4 +1,6 @@
+import { Button } from 'components/button';
 import { InputField } from 'components/input-field';
+import { ButtonTypes } from 'consts';
 import { authFormStyle as style } from './auth-form.style';
 
 export const AuthForm = (): JSX.Element => {
@@ -17,6 +19,14 @@ export const AuthForm = (): JSX.Element => {
           label="API Key"
           toolTip="Уникальный ключ, дающий доступ к API"
         />
+      </div>
+      <div className={style.buttons}>
+        <Button type={ButtonTypes.NEUTRAL} onClick={console.log}>
+          Очистить
+        </Button>
+        <Button type={ButtonTypes.SUCCESS} onClick={console.log}>
+          Войти
+        </Button>
       </div>
     </div>
   );

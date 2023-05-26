@@ -27,5 +27,11 @@ export const authFormStyle = {
     flex-direction: column;
     gap: 20px;
     width: 100%;
+  `,
+  buttons: css`
+    display: grid;
+    grid-template-columns: 1.3fr 2fr;
+    gap: 10px;
+    width: 100%;
   `
 };

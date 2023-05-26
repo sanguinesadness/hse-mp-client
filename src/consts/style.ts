@@ -5,15 +5,34 @@ export enum ColorsBasicEnum {
   BLUE_PILLOW = '#4970FB',
   PRIMARY = '#0A293A',
   SUCCESS_GREEN = '#13D38E',
+  ERROR_RED = '#FF5A5A',
   WHITE = '#FFFFFF',
   BLACK = '#000000',
   TRANSPARENT = 'transparent'
 }
 
 export enum ColorsShadesEnum {
+  GRAY_100 = '#f5f5f5',
+  GRAY_200 = '#f1f1f1',
   GRAY_400 = '#E8E8E8',
-  GRAY_600 = '#adadad'
+  GRAY_600 = '#ADADAD',
+  GRAY_800 = '#727272',
+  GRAY_1000 = '#4d4d4d'
 }
+
+export enum ColorsSuccessEnum {
+  SUCCESS_200 = '#E7FBF4'
+}
+
+export enum ColorsErrorEnum {
+  ERROR_200 = '#FFEEEE'
+}
+
+export type ColorEnum =
+  | ColorsBasicEnum
+  | ColorsSuccessEnum
+  | ColorsErrorEnum
+  | ColorsShadesEnum;
 
 export const FontsBasic = {
   BUNGEE: css`

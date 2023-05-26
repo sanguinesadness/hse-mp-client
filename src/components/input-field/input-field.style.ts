@@ -21,7 +21,7 @@ export const inputFieldStyle = {
     border: 1px solid ${ColorsShadesEnum.GRAY_400};
     background: ${ColorsBasicEnum.WHITE};
     border-radius: 10px;
-    padding: 7px 15px;
+    padding: 10px 15px;
 
     &::placeholder {
       color: ${ColorsShadesEnum.GRAY_600};
