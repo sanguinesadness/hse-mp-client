@@ -11,15 +11,14 @@ type TTooltipProps = {
 export const Tooltip = ({ text }: TTooltipProps): JSX.Element => {
   const popupRef = useRef<HTMLDivElement>(null);
   const iconRef = useRef<HTMLDivElement>(null);
-  const wrapperRef = useRef<HTMLDivElement>(null);
 
   const popupWidth = popupRef.current?.clientWidth ?? 0;
   const iconHeight = iconRef.current?.clientHeight ?? 0;
 
-  const isHovered = useMouseHover(wrapperRef);
+  const isHovered = useMouseHover(iconRef);
 
   return (
-    <div ref={wrapperRef} className={style.wrapper}>
+    <div className={style.wrapper}>
       <div
         ref={popupRef}
         style={{

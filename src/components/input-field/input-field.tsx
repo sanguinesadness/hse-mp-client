@@ -1,20 +1,36 @@
 import { cx } from '@emotion/css';
 import { Tooltip } from 'components/tooltip';
-import { InputHTMLAttributes } from 'react';
+import { ChangeEvent } from 'react';
 import { inputFieldStyle as style } from './input-field.style';
 
-type TInputFieldProps = {
+export type TInputFieldChangeEvent<T extends string> = {
+  event: ChangeEvent<HTMLInputElement>;
+  fieldName: T;
+};
+
+type TInputFieldProps<T extends string> = {
   className?: string;
   label?: string;
   toolTip?: string;
-} & InputHTMLAttributes<HTMLInputElement>;
+  onChange: (e: TInputFieldChangeEvent<T>) => void;
+  name: T;
+  value: string | number;
+  placeholder?: string;
+};
 
-export const InputField = ({
+export function InputField<T extends string>({
   className,
   label,
   toolTip,
-  ...rest
-}: TInputFieldProps): JSX.Element => {
+  name,
+  value,
+  onChange,
+  placeholder
+}: TInputFieldProps<T>): JSX.Element {
+  const handleValueChange = (e: ChangeEvent<HTMLInputElement>): void => {
+    onChange({ event: e, fieldName: name });
+  };
+
   return (
     <div className={style.wrapper}>
       {label && (
@@ -23,7 +39,13 @@ export const InputField = ({
           {toolTip && <Tooltip text={toolTip} />}
         </div>
       )}
-      <input className={cx(style.input, className)} {...rest} />
+      <input
+        className={cx(style.input, className)}
+        name={name}
+        value={value}
+        onChange={handleValueChange}
+        placeholder={placeholder}
+      />
     </div>
   );
-};
+}
