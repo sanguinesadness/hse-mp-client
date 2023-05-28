@@ -11,6 +11,7 @@ export const buttonStyle = {
   wrapper: {
     default: css`
       padding: 13px 20px;
+      max-height: 45px;
       border-radius: 10px;
       display: flex;
       flex-direction: row;

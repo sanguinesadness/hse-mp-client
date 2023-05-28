@@ -7,7 +7,8 @@ import { authFormStore, TAuthFormStoreField } from 'stores/auth-form.store';
 import { authFormStyle as style } from './auth-form.style';
 
 export const AuthForm = observer((): JSX.Element => {
-  const { apiKey, clientId, isFormEmpty, isFormValid } = authFormStore;
+  const { apiKey, clientId, isLoading, isFormEmpty, isFormValid } =
+    authFormStore;
 
   const handleFieldValueChange = (
     e: TInputFieldChangeEvent<TAuthFormStoreField>
@@ -17,6 +18,10 @@ export const AuthForm = observer((): JSX.Element => {
 
   const handleResetClick = (): void => {
     authFormStore.resetStore();
+  };
+
+  const handleLoginClick = (): void => {
+    void authFormStore.requestLogin();
   };
 
   return (
@@ -51,7 +56,8 @@ export const AuthForm = observer((): JSX.Element => {
         <Button
           type={ButtonTypes.SUCCESS}
           disabled={!isFormValid}
-          onClick={console.log}>
+          isLoading={isLoading}
+          onClick={handleLoginClick}>
           Войти
         </Button>
       </div>

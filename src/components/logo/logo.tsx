@@ -2,15 +2,17 @@ import { cx } from '@emotion/css';
 import { ReactComponent as LogoIcon } from 'assets/logos/hse-mp.svg';
 import { RoutesEnum } from 'consts';
 import { useMouseHover } from 'hooks';
+import { observer } from 'mobx-react';
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { authStore } from 'stores';
 import { logoStyle as style } from './logo.style';
 
 type TLogoProps = {
   size: 'large' | 'small';
 };
 
-export const Logo = ({ size }: TLogoProps): JSX.Element => {
+export const Logo = observer(({ size }: TLogoProps): JSX.Element => {
   const wrapperRef = useRef<HTMLDivElement>(null);
   const textRef = useRef<HTMLSpanElement>(null);
 
@@ -19,7 +21,11 @@ export const Logo = ({ size }: TLogoProps): JSX.Element => {
   const isHovered = useMouseHover(wrapperRef);
 
   const handleLogoClick = (): void => {
-    navigate(RoutesEnum.ROOT);
+    if (authStore.isLoggedIn) {
+      navigate(RoutesEnum.HOME);
+    } else {
+      navigate(RoutesEnum.AUTH);
+    }
   };
 
   useEffect(() => {
@@ -51,4 +57,4 @@ export const Logo = ({ size }: TLogoProps): JSX.Element => {
       </span>
     </div>
   );
-};
+});
