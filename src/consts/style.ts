@@ -21,7 +21,8 @@ export enum ColorsShadesEnum {
 }
 
 export enum ColorsSuccessEnum {
-  SUCCESS_200 = '#E7FBF4'
+  SUCCESS_200 = '#E7FBF4',
+  SUCCESS_300 = '#DCF9EE'
 }
 
 export enum ColorsErrorEnum {

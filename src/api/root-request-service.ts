@@ -1,4 +1,4 @@
-import { TResponseWrapper } from 'api/models';
+import { TDefaultResponse } from 'api/models';
 import axios, {
   AxiosInstance,
   AxiosResponse,
@@ -8,13 +8,9 @@ import { SERVER_URL } from 'config';
 import { authStore } from 'stores';
 import Cookies from 'universal-cookie';
 
-class RequestService {
+export class RootRequestService {
   private readonly _axios: AxiosInstance;
   private _cookies: Cookies;
-
-  public get axios(): AxiosInstance {
-    return this._axios;
-  }
 
   constructor() {
     this._cookies = new Cookies();
@@ -33,12 +29,20 @@ class RequestService {
     );
 
     this._axios.interceptors.response.use(
-      (config: AxiosResponse<TResponseWrapper>) => {
-        authStore.setIsLoggedIn('user' in config.data.result);
+      (config: AxiosResponse<TDefaultResponse<unknown>>) => {
+        const isApiKeyValid =
+          config.config.headers.get('api-key') === this._cookies.get('api-key');
+        const isClientIdValid =
+          config.config.headers.get('client-id') ===
+          this._cookies.get('client-id');
+        authStore.setIsLoggedIn(isApiKeyValid && isClientIdValid);
         return config;
       }
     );
   }
-}
 
-export const requestService = new RequestService();
+  public async postPromise<T>(endpoint: string, payload?: object): Promise<T> {
+    const resp = await this._axios.post<TDefaultResponse<T>>(endpoint, payload);
+    return resp.data.result;
+  }
+}

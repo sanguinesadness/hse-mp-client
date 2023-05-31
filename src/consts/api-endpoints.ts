@@ -4,5 +4,9 @@ export const ApiEndpoints = {
     FIND: '/user/find',
     LOGIN: '/user/login',
     CHECK_AUTH: '/user/check_auth'
+  },
+  PRODUCT: {
+    LIST: '/product/short_list',
+    DETAILED_LIST: '/product/detailed_list'
   }
 };
