@@ -10,19 +10,6 @@ type TProductCardProps = {
   product: any;
 };
 
-// "sources": [
-//   {
-//     "is_enabled": true,
-//     "sku": 961112294,
-//     "source": "fbs"
-//   },
-//   {
-//     "is_enabled": true,
-//     "sku": 961112295,
-//     "source": "fbo"
-//   }
-// ],
-
 const CheckedIconGreen = () => (
   <CheckIcon
     className={cx(
@@ -72,7 +59,7 @@ export const ProductCard = ({ product }: TProductCardProps): JSX.Element => {
         <div className={style.body.info.wrapper}>
           <div className={style.body.info.priceDate.wrapper}>
             <span className={style.body.info.priceDate.price}>
-              ${Number.parseFloat(product.price)} ₽
+              {Number.parseFloat(product.price)} ₽
             </span>
             <span className={style.body.info.priceDate.date}>30.04.2023</span>
           </div>

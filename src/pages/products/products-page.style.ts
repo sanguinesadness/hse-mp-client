@@ -76,8 +76,9 @@ export const productsPageStyle = {
     wrapper: css`
       padding: 30px 0;
       display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
+      grid-template-columns: 1fr 1fr;
       gap: 20px;
+      justify-items: center;
     `
   }
 };

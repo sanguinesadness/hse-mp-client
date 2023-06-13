@@ -5,6 +5,7 @@ export enum ColorsBasicEnum {
   BLUE_PILLOW = '#4970FB',
   PRIMARY = '#0A293A',
   SUCCESS_GREEN = '#13D38E',
+  GOLD = '#FFA825',
   ERROR_RED = '#FF5A5A',
   WHITE = '#FFFFFF',
   BLACK = '#000000',
@@ -51,6 +52,6 @@ export const FOOTER_HEIGHT = '70px';
 export const AUTH_HEADER_HEIGHT = '150px';
 export const AUTH_FOOTER_HEIGHT = '100px';
 
-export const DEFAULT_SIDE_PADDING = '150px';
+export const DEFAULT_SIDE_PADDING = '280px';
 
 export const SMOOTH_BOUNCE_EASE = 'cubic-bezier(0.52, -0.38, 0.49, 1.31)';

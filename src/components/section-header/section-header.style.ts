@@ -17,6 +17,7 @@ export const sectionHeaderStyle = {
     height: ${SECTION_HEADER_HEIGHT};
     position: sticky;
     top: 0;
+    z-index: 50;
   `,
   innerWrapper: css`
     padding: 0 ${DEFAULT_SIDE_PADDING};

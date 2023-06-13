@@ -7,7 +7,7 @@ export const productCardStyle = {
       display: flex;
       flex-direction: column;
       cursor: pointer;
-      width: 400px;
+      width: auto;
       min-height: 240px;
       transition: 300ms ${SMOOTH_BOUNCE_EASE} all;
     `,

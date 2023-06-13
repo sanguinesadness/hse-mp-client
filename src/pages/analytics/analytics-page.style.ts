@@ -1,7 +1,7 @@
 import { css } from '@emotion/css';
 
-export const homePageStyle = {
+export const analyticsPageStyle = {
   wrapper: css`
-    padding: 0 100px;
+    padding: 30px 0;
   `
 };

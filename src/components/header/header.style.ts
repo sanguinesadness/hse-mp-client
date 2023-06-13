@@ -8,5 +8,6 @@ export const headerStyle = {
     justify-content: space-between;
     height: ${HEADER_HEIGHT};
     padding: 0 ${DEFAULT_SIDE_PADDING};
+    z-index: 20;
   `
 };

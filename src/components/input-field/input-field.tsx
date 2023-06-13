@@ -36,7 +36,7 @@ export function InputField<T extends string>({
       {label && (
         <div className={style.label.wrapper}>
           <span>{label}</span>
-          {toolTip && <Tooltip text={toolTip} />}
+          {toolTip && <Tooltip>{toolTip}</Tooltip>}
         </div>
       )}
       <input
