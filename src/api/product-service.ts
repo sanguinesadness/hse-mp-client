@@ -1,5 +1,7 @@
 import { TProductWithCompetitors, TTopProduct } from 'api/models';
+import { TOzonProduct } from 'api/models/ozon-product.model';
 import { ApiEndpoints } from 'consts';
+import { snakeToCamel } from 'utils';
 import { RootRequestService } from './root-request-service';
 
 class ProductService extends RootRequestService {
@@ -14,11 +16,11 @@ class ProductService extends RootRequestService {
     return this.downloadFile(ApiEndpoints.PRODUCT.DOWNLOAD_TOP, 'top_products');
   }
 
-  public async fetchProductsDetailed(): Promise<any> {
+  public async fetchProductsDetailed(): Promise<Array<TOzonProduct>> {
     const resp = await this.postPromise<any>(
       ApiEndpoints.PRODUCT.DETAILED_LIST
     );
-    return resp.productList;
+    return resp.productList.map(snakeToCamel);
   }
 
   public async fetchProductsShort(): Promise<any> {

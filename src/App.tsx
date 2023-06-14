@@ -25,6 +25,10 @@ const router = createBrowserRouter([
     element: <ClientRootPage route={RoutesEnum.PRODUCTS} />
   },
   {
+    path: RoutesEnum.PRODUCTS_DETAIL,
+    element: <ClientRootPage route={RoutesEnum.PRODUCTS_DETAIL} />
+  },
+  {
     path: RoutesEnum.WAREHOUSES,
     element: <ClientRootPage route={RoutesEnum.WAREHOUSES} />
   },

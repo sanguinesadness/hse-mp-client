@@ -1,14 +1,18 @@
 import { cx } from '@emotion/css';
+import { TOzonProduct } from 'api/models/ozon-product.model';
 import { ReactComponent as CheckIcon } from 'assets/icons/check.svg';
 import { ReactComponent as CrossIcon } from 'assets/icons/cross.svg';
+import { RoutesEnum } from 'consts';
 import { useMouseHover } from 'hooks';
 import { observer } from 'mobx-react';
 import { useRef } from 'react';
 import LinesEllipsis from 'react-lines-ellipsis';
+import { useNavigate } from 'react-router-dom';
+import { formatDate } from 'utils';
 import { productCardStyle as style } from './product-card.style';
 
 type TProductCardProps = {
-  product: any;
+  product: TOzonProduct;
 };
 
 const CheckedIconGreen = () => (
@@ -31,18 +35,25 @@ const CrossIconRed = () => (
 
 export const ProductCard = observer(
   ({ product }: TProductCardProps): JSX.Element => {
+    const navigate = useNavigate();
+
     const isFbsEnabled = !!product.sources.find(
       ({ source }: any) => source === 'fbs'
-    )?.is_enabled;
+    )?.isEnabled;
     const isFboEnabled = !!product.sources.find(
       ({ source }: any) => source === 'fbo'
-    )?.is_enabled;
+    )?.isEnabled;
 
     const wrapperRef = useRef<HTMLDivElement>(null);
     const isHovered = useMouseHover(wrapperRef);
 
+    const handleCardClick = (): void => {
+      navigate(`${RoutesEnum.PRODUCTS}/${product.id}`);
+    };
+
     return (
       <div
+        onClick={handleCardClick}
         className={cx(style.wrapper.default, {
           [style.wrapper.hovered]: isHovered
         })}
@@ -53,7 +64,7 @@ export const ProductCard = observer(
               className={style.body.image.self}
               alt=""
               src={
-                product.primary_image ||
+                product.primaryImage ||
                 'https://www.freeiconspng.com/thumbs/no-image-icon/no-image-icon-6.png'
               }
             />
@@ -63,7 +74,9 @@ export const ProductCard = observer(
               <span className={style.body.info.priceDate.price}>
                 {Number.parseFloat(product.price)} ₽
               </span>
-              <span className={style.body.info.priceDate.date}>30.04.2023</span>
+              <span className={style.body.info.priceDate.date}>
+                {formatDate(product.createdAt)}
+              </span>
             </div>
             <div className={style.body.info.title.wrapper}>
               <LinesEllipsis
@@ -79,7 +92,7 @@ export const ProductCard = observer(
                   {product.barcode || '—'}
                 </span>
                 <span className={style.body.info.additional.barcodeOffer.item}>
-                  {product.offer_id || '—'}
+                  {product.offerId || '—'}
                 </span>
               </div>
               <div className={style.body.info.additional.fboFbs.wrapper}>
@@ -102,16 +115,16 @@ export const ProductCard = observer(
         <div className={style.footer.wrapper}>
           <div className={style.footer.weightAmount.wrapper}>
             <span className={style.footer.weightAmount.weight}>
-              {product.volume_weight} кг
+              {product.volumeWeight} кг
             </span>
             <span className={style.footer.weightAmount.amount}>19 шт</span>
           </div>
           <div className={style.footer.status.wrapper}>
             <span className={style.footer.status.name}>
-              {product.status.state_name}
+              {product.status.stateName}
             </span>
             <span className={style.footer.status.description}>
-              {product.status.state_description}
+              {product.status.stateDescription}
             </span>
           </div>
         </div>

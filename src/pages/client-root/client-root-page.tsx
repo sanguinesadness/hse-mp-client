@@ -2,7 +2,7 @@ import { Footer } from 'components/footer';
 import { Header } from 'components/header';
 import { SectionHeader } from 'components/section-header';
 import {
-  ClientRoutesNamesMap,
+  ClientNamesRoutesMap,
   ClientRoutesPagesMap,
   RoutesEnum,
   TClientRoutes
@@ -27,10 +27,18 @@ export const ClientRootPage = observer(
       }
     }, [authStore.isLoggedIn]);
 
+    const pageNames = Object.entries(ClientNamesRoutesMap)
+      .map(([title, routes]: [string, Array<string>]) => {
+        if (routes.includes(route)) {
+          return title;
+        }
+      })
+      .filter((title) => title !== undefined);
+
     return (
       <div>
         <Header />
-        <SectionHeader pageName={ClientRoutesNamesMap[route]} />
+        <SectionHeader pageName={pageNames[0] || ''} />
         <div className={style.content}>{ClientRoutesPagesMap[route]}</div>
         <Footer />
       </div>

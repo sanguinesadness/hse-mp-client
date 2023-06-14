@@ -1,17 +1,46 @@
-import { cx } from '@emotion/css';
-import { ReactComponent as SquarePlusIcon } from 'assets/icons/ballot.svg';
+import { ReactComponent as BallotIcon } from 'assets/icons/ballot.svg';
 import { ReactComponent as CaretDownIcon } from 'assets/icons/caret-down.svg';
 import { ReactComponent as PlusSquareIcon } from 'assets/icons/square-plus (1).svg';
 import { ReactComponent as TrashIcon } from 'assets/icons/trash.svg';
 import { ContentLoader } from 'components/content-loader';
+import { PageMenu, TPageMenuItem } from 'components/page-menu';
 import { observer } from 'mobx-react';
 import { ProductCard } from 'pages/products/components/product-card';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { productsStore } from 'stores/products.store';
 import { productsPageStyle as style } from './products-page.style';
 
+enum TabsEnum {
+  ADD = 'ADD',
+  LIST = 'LIST',
+  ARCHIVE = 'ARCHIVE'
+}
+
+const PAGE_MENU_ITEMS: Array<TPageMenuItem<TabsEnum>> = [
+  {
+    value: TabsEnum.ADD,
+    text: 'Добавить',
+    icon: PlusSquareIcon
+  },
+  {
+    value: TabsEnum.LIST,
+    text: 'Мои товары',
+    icon: BallotIcon
+  },
+  {
+    value: TabsEnum.ARCHIVE,
+    text: 'Архив',
+    icon: TrashIcon
+  }
+];
+
 export const ProductsPage = observer((): JSX.Element => {
+  const [selectedTab, setSelectedTab] = useState<TabsEnum>(TabsEnum.LIST);
   const { products, isLoading } = productsStore;
+
+  const handleTabChange = (tab: TabsEnum): void => {
+    setSelectedTab(tab);
+  };
 
   useEffect(() => {
     productsStore.init();
@@ -20,24 +49,11 @@ export const ProductsPage = observer((): JSX.Element => {
 
   return (
     <div className={style.wrapper}>
-      <div className={style.menu.wrapper}>
-        <div className={style.menu.item.wrapper.default}>
-          <PlusSquareIcon className={style.menu.item.icon} />
-          <span className={style.menu.item.text}>Добавить</span>
-        </div>
-        <div
-          className={cx(
-            style.menu.item.wrapper.default,
-            style.menu.item.wrapper.selected
-          )}>
-          <SquarePlusIcon className={style.menu.item.icon} />
-          <span className={style.menu.item.text}>Мои товары</span>
-        </div>
-        <div className={style.menu.item.wrapper.default}>
-          <TrashIcon className={style.menu.item.icon} />
-          <span className={style.menu.item.text}>Архив</span>
-        </div>
-      </div>
+      <PageMenu<TabsEnum>
+        items={PAGE_MENU_ITEMS}
+        value={selectedTab}
+        onChange={handleTabChange}
+      />
       <div className={style.header.wrapper}>
         <div className={style.header.titleBlock.wrapper}>
           <span className={style.header.titleBlock.title}>Мои товары</span>
