@@ -31,7 +31,6 @@ export const productCompetitorCardStyle = {
   title: {
     wrapper: css`
       max-width: 100%;
-      min-height: 50px;
     `,
     self: css`
       max-width: 100%;

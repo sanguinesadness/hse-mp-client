@@ -30,7 +30,7 @@ class ProductsStore {
     void this.loadProducts();
   }
 
-  public loadProducts(): Promise<void> {
+  public async loadProducts(): Promise<void> {
     this._isError = false;
     this._isLoading = true;
 

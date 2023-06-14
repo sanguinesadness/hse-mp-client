@@ -17,18 +17,18 @@ export const ProductCompetitorCard = ({
       <div className={style.image.wrapper}>
         <img className={style.image.self} alt="" src={competitor.image} />
       </div>
+      <div className={style.price.wrapper}>
+        <span className={style.price.newPrice}>{competitor.newPrice}</span>
+        {competitor.oldPrice && (
+          <span className={style.price.oldPrice}>{competitor.oldPrice}</span>
+        )}
+      </div>
       <div className={style.title.wrapper}>
         <LinesEllipsis
           className={style.title.self}
           text={competitor.title}
           maxLine={3}
         />
-      </div>
-      <div className={style.price.wrapper}>
-        <span className={style.price.newPrice}>{competitor.newPrice}</span>
-        {competitor.oldPrice && (
-          <span className={style.price.oldPrice}>{competitor.oldPrice}</span>
-        )}
       </div>
       <div className={style.ratingComments.wrapper}>
         {competitor.rating && (

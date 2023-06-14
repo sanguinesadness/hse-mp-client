@@ -3,6 +3,7 @@ import { ReactComponent as SquarePlusIcon } from 'assets/icons/ballot.svg';
 import { ReactComponent as CaretDownIcon } from 'assets/icons/caret-down.svg';
 import { ReactComponent as PlusSquareIcon } from 'assets/icons/square-plus (1).svg';
 import { ReactComponent as TrashIcon } from 'assets/icons/trash.svg';
+import { ContentLoader } from 'components/content-loader';
 import { observer } from 'mobx-react';
 import { ProductCard } from 'pages/products/components/product-card';
 import { useEffect } from 'react';
@@ -10,7 +11,7 @@ import { productsStore } from 'stores/products.store';
 import { productsPageStyle as style } from './products-page.style';
 
 export const ProductsPage = observer((): JSX.Element => {
-  const { products } = productsStore;
+  const { products, isLoading } = productsStore;
 
   useEffect(() => {
     productsStore.init();
@@ -49,11 +50,15 @@ export const ProductsPage = observer((): JSX.Element => {
           <div className={style.header.filterBlock.text}>Дата добавления</div>
         </div>
       </div>
-      <div className={style.grid.wrapper}>
-        {products.map((product) => (
-          <ProductCard key={product.id} product={product} />
-        ))}
-      </div>
+      {isLoading ? (
+        <ContentLoader />
+      ) : (
+        <div className={style.grid.wrapper}>
+          {products.map((product) => (
+            <ProductCard key={product.id} product={product} />
+          ))}
+        </div>
+      )}
     </div>
   );
 });

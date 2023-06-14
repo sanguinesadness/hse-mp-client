@@ -1,13 +1,15 @@
-import { TProductCompetitor, TProductWithCompetitors } from 'api/models';
+import { TProductWithCompetitors } from 'api/models';
 import { ReactComponent as DownloadIcon } from 'assets/icons/download.svg';
 import { ReactComponent as RefreshIcon } from 'assets/icons/refresh.svg';
+import { ContentLoader } from 'components/content-loader';
+import { observer } from 'mobx-react';
 import { useEffect } from 'react';
 import { productsWithCompetitorsStore } from 'stores';
-import { ProductCompetitorCard } from './components/product-competitor-card';
+import { ProductBlock } from './components/product-block';
 import { productCompetitorsStyle as style } from './product-competitors.style';
 
-export const ProductCompetitors = (): JSX.Element => {
-  const { productsWithCompetitors } = productsWithCompetitorsStore;
+export const ProductCompetitors = observer((): JSX.Element => {
+  const { productsWithCompetitors, isLoading } = productsWithCompetitorsStore;
 
   useEffect(() => {
     productsWithCompetitorsStore.init();
@@ -15,6 +17,11 @@ export const ProductCompetitors = (): JSX.Element => {
       productsWithCompetitorsStore.destroy();
     };
   }, []);
+
+  const handleRefreshClick = (): void => {
+    // void productsWithCompetitorsStore.fakeRefresh();
+    void productsWithCompetitorsStore.loadData(true);
+  };
 
   return (
     <div className={style.wrapper}>
@@ -33,7 +40,9 @@ export const ProductCompetitors = (): JSX.Element => {
             </div>
             <span className={style.header.buttons.button.text}>Скачать</span>
           </div>
-          <div className={style.header.buttons.button.wrapper}>
+          <div
+            className={style.header.buttons.button.wrapper}
+            onClick={handleRefreshClick}>
             <div className={style.header.buttons.button.icon.wrapper}>
               <RefreshIcon className={style.header.buttons.button.icon.svg} />
             </div>
@@ -42,46 +51,22 @@ export const ProductCompetitors = (): JSX.Element => {
         </div>
       </div>
       <div className={style.body.wrapper}>
-        <div className={style.body.products.wrapper}>
-          {productsWithCompetitors.map(
-            (product: TProductWithCompetitors, productIndex: number) => (
-              <div
-                key={product.id}
-                className={style.body.products.product.wrapper}>
-                <div className={style.body.products.product.self.wrapper}>
-                  <div className={style.body.products.product.self.counter}>
-                    {productIndex + 1}
-                  </div>
-                  <div className={style.body.products.product.self.name}>
-                    {product.name}
-                  </div>
-                  {product.primaryImage && (
-                    <div
-                      className={
-                        style.body.products.product.self.image.wrapper
-                      }>
-                      <img
-                        alt=""
-                        className={style.body.products.product.self.image.self}
-                        src={product.primaryImage}
-                      />
-                    </div>
-                  )}
-                </div>
-                <div
-                  className={style.body.products.product.competitors.wrapper}>
-                  {product.competitors.map((competitor: TProductCompetitor) => (
-                    <ProductCompetitorCard
-                      key={competitor.id}
-                      competitor={competitor}
-                    />
-                  ))}
-                </div>
-              </div>
-            )
-          )}
-        </div>
+        {isLoading ? (
+          <ContentLoader />
+        ) : (
+          <div className={style.body.products.wrapper}>
+            {productsWithCompetitors.map(
+              (product: TProductWithCompetitors, index: number) => (
+                <ProductBlock
+                  key={product.id}
+                  product={product}
+                  index={index}
+                />
+              )
+            )}
+          </div>
+        )}
       </div>
     </div>
   );
-};
+});
