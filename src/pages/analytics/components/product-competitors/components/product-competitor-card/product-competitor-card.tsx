@@ -18,7 +18,9 @@ export const ProductCompetitorCard = ({
         <img className={style.image.self} alt="" src={competitor.image} />
       </div>
       <div className={style.price.wrapper}>
-        <span className={style.price.newPrice}>{competitor.newPrice}</span>
+        {competitor.newPrice && (
+          <span className={style.price.newPrice}>{competitor.newPrice}</span>
+        )}
         {competitor.oldPrice && (
           <span className={style.price.oldPrice}>{competitor.oldPrice}</span>
         )}

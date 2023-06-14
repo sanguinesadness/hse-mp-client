@@ -1,4 +1,4 @@
-import { TProductWithCompetitors } from 'api/models';
+import { TProductWithCompetitors, TTopProduct } from 'api/models';
 import { ApiEndpoints } from 'consts';
 import { RootRequestService } from './root-request-service';
 
@@ -23,6 +23,12 @@ class ProductService extends RootRequestService {
         refresh
       }
     );
+  }
+
+  public async fetchTopProducts(refresh?: boolean): Promise<{
+    topProducts: Array<TTopProduct>;
+  }> {
+    return await this.postPromise(ApiEndpoints.PRODUCT.TOP, { refresh });
   }
 }
 
