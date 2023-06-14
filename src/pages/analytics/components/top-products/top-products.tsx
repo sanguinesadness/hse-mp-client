@@ -21,12 +21,16 @@ export const TopProducts = observer((): JSX.Element => {
     void topProductsStore.loadData();
   };
 
+  const handleDownloadClick = (): void => {
+    void topProductsStore.download();
+  };
+
   return (
     <div className={style.wrapper}>
       <SectionTitle
         title="Что продавать?"
         description="Данные с публичных распродаж на Ozon, показывающие самые популярные товары за последнюю неделю. Cобираются и обновляются каждые 12 часов, чтобы отразить актуальную популярность товаров. Используя эту информацию, вы можете увидеть, какие товары на данный момент продаются лучше всего на платформе Ozon."
-        onDownload={() => void 0}
+        onDownload={handleDownloadClick}
         onRefresh={handleRefreshClick}
       />
       <div className={style.body.wrapper}>

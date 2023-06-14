@@ -3,6 +3,17 @@ import { ApiEndpoints } from 'consts';
 import { RootRequestService } from './root-request-service';
 
 class ProductService extends RootRequestService {
+  public async downloadCompetitors(): Promise<void> {
+    return this.downloadFile(
+      ApiEndpoints.PRODUCT.DOWNLOAD_COMPETITORS,
+      'product_competitors'
+    );
+  }
+
+  public async downloadTopProducts(): Promise<void> {
+    return this.downloadFile(ApiEndpoints.PRODUCT.DOWNLOAD_TOP, 'top_products');
+  }
+
   public async fetchProductsDetailed(): Promise<any> {
     const resp = await this.postPromise<any>(
       ApiEndpoints.PRODUCT.DETAILED_LIST

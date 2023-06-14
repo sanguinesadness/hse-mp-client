@@ -22,12 +22,16 @@ export const ProductCompetitors = observer((): JSX.Element => {
     void productsWithCompetitorsStore.loadData();
   };
 
+  const handleDownloadClick = (): void => {
+    void productsWithCompetitorsStore.download();
+  };
+
   return (
     <div className={style.wrapper}>
       <SectionTitle
         title="Товары конкурентов"
         description="Ознакомьтесь с товарами, найденными на платформе Ozon у ваших конкурентов, которые схожи с вашими. Эта информация позволит вам получить представление о продуктах, которые предлагаются конкурентами на рынке."
-        onDownload={() => void 0}
+        onDownload={handleDownloadClick}
         onRefresh={handleRefreshClick}
       />
       <div className={style.body.wrapper}>

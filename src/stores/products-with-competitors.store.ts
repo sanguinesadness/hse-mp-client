@@ -28,6 +28,10 @@ class ProductsWithCompetitorsStore {
 
   public destroy(): void {}
 
+  public async download(): Promise<void> {
+    return productService.downloadCompetitors();
+  }
+
   public async fakeRefresh(): Promise<void> {
     this._isLoading = true;
     await fakePromise(5000);
