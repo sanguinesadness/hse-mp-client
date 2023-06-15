@@ -20,11 +20,7 @@ export const AuthPage = observer((): JSX.Element => {
 
   useEffect(() => {
     if (authStore.isLoggedIn) {
-      navigate(
-        authStore.initialRoute === RoutesEnum.AUTH
-          ? RoutesEnum.HOME
-          : authStore.initialRoute
-      );
+      navigate(RoutesEnum.HOME);
     }
   }, [authStore.isLoggedIn]);
 
