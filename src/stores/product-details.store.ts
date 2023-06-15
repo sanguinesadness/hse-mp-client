@@ -4,6 +4,12 @@ import { makeAutoObservable, toJS } from 'mobx';
 import { fakePromise } from 'utils';
 
 class ProductDetailsStore {
+  private _isArchived: boolean = false;
+
+  public get isArchived(): boolean {
+    return this._isArchived;
+  }
+
   private _isError: boolean = false;
 
   public get isError(): boolean {
@@ -24,6 +30,11 @@ class ProductDetailsStore {
 
   constructor() {
     makeAutoObservable(this);
+  }
+
+  public async archiveProduct(): Promise<void> {
+    await fakePromise(1000);
+    this._isArchived = true;
   }
 
   public destroy(): void {}

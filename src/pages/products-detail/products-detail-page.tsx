@@ -1,9 +1,11 @@
 import { ReactComponent as EyeIcon } from 'assets/icons/eye.svg';
 import { ReactComponent as TextIcon } from 'assets/icons/text.svg';
 import { ReactComponent as TrashIcon } from 'assets/icons/trash.svg';
+import { Button } from 'components/button';
 import { ContentLoader } from 'components/content-loader';
+import { Modal } from 'components/modal';
 import { PageMenu, TPageMenuItem } from 'components/page-menu';
-import { RoutesEnum } from 'consts';
+import { ButtonTypes, RoutesEnum } from 'consts';
 import { observer } from 'mobx-react';
 import { ProductEdit } from 'pages/products-detail/components/product-edit';
 import { ProductDetail } from 'pages/products-detail/product-detail';
@@ -40,7 +42,8 @@ export const ProductsDetailPage = observer((): JSX.Element => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [selectedTab, setSelectedTab] = useState<TabsEnum>(TabsEnum.VIEW);
-  const { product, isError, isLoading } = productDetailsStore;
+  const { product, isError, isLoading, isArchived } = productDetailsStore;
+  const [isArchiveLoading, setIsArchiveLoading] = useState<boolean>(false);
 
   useEffect(() => {
     const idNum = parseInt(id || '0');
@@ -49,6 +52,18 @@ export const ProductsDetailPage = observer((): JSX.Element => {
 
   const handleTabChange = (tab: TabsEnum): void => {
     setSelectedTab(tab);
+  };
+
+  const handleModalClose = (): void => {
+    setSelectedTab(TabsEnum.VIEW);
+  };
+
+  const handleArchiveClick = async (): Promise<void> => {
+    setIsArchiveLoading(true);
+    productDetailsStore.archiveProduct().finally(() => {
+      handleModalClose();
+      setIsArchiveLoading(false);
+    });
   };
 
   if (isError) {
@@ -66,12 +81,39 @@ export const ProductsDetailPage = observer((): JSX.Element => {
         items={PAGE_MENU_ITEMS}
         onChange={handleTabChange}
       />
-      {selectedTab === TabsEnum.VIEW && product && (
-        <ProductDetail product={product} />
-      )}
+      {(selectedTab === TabsEnum.VIEW || selectedTab === TabsEnum.TO_ARCHIVE) &&
+        product && <ProductDetail product={product} isArchived={isArchived} />}
       {selectedTab === TabsEnum.EDIT && product && (
         <ProductEdit product={product} />
       )}
+      <Modal
+        isOpen={selectedTab === TabsEnum.TO_ARCHIVE}
+        onClose={handleModalClose}>
+        <div className={style.modal.wrapper}>
+          <div className={style.modal.title}>Подтвердите действие</div>
+          <div className={style.modal.texts.wrapper}>
+            <span className={style.modal.texts.main}>
+              Вы уверены, что хотите перенести в архив товар
+            </span>
+            <span className={style.modal.texts.bold}>{product?.name}?</span>
+          </div>
+          <div className={style.modal.buttons.wrapper}>
+            <Button
+              className={style.modal.buttons.button}
+              type={ButtonTypes.NEUTRAL}
+              onClick={handleModalClose}>
+              Отменить
+            </Button>
+            <Button
+              className={style.modal.buttons.button}
+              type={ButtonTypes.ERROR}
+              isLoading={isArchiveLoading}
+              onClick={handleArchiveClick}>
+              Да
+            </Button>
+          </div>
+        </div>
+      </Modal>
     </div>
   );
 });

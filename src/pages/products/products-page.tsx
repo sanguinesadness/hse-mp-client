@@ -4,6 +4,7 @@ import { ReactComponent as PlusSquareIcon } from 'assets/icons/square-plus (1).s
 import { ReactComponent as TrashIcon } from 'assets/icons/trash.svg';
 import { ContentLoader } from 'components/content-loader';
 import { PageMenu, TPageMenuItem } from 'components/page-menu';
+import { Separator } from 'components/separator';
 import { observer } from 'mobx-react';
 import { ProductCard } from 'pages/products/components/product-card';
 import { useEffect, useState } from 'react';
@@ -75,6 +76,7 @@ export const ProductsPage = observer((): JSX.Element => {
           ))}
         </div>
       )}
+      <Separator height={40} />
     </div>
   );
 });

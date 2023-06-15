@@ -1,4 +1,5 @@
 import { css } from '@emotion/css';
+import { ColorsBasicEnum } from 'consts';
 
 export const productDetailStyle = {
   wrapper: css`
@@ -31,7 +32,28 @@ export const productDetailStyle = {
         wrapper: css`
           display: flex;
           flex-direction: row;
-        `
+        `,
+        archive: {
+          wrapper: css`
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 10px;
+            padding-bottom: 15px;
+          `,
+          icon: css`
+            width: 20px;
+            height: 20px;
+
+            * {
+              fill: ${ColorsBasicEnum.ERROR_RED};
+            }
+          `,
+          text: css`
+            font-weight: 500;
+            color: ${ColorsBasicEnum.ERROR_RED};
+          `
+        }
       },
       list: {
         wrapper: css`

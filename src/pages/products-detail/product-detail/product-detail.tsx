@@ -1,4 +1,5 @@
 import { TOzonProductExtended } from 'api/models';
+import { ReactComponent as ExclamationIcon } from 'assets/icons/exclamation.svg';
 import { ContextualNotification } from 'components/contextual-notification';
 import { Separator } from 'components/separator';
 import { observer } from 'mobx-react';
@@ -15,10 +16,11 @@ import { productDetailStyle as style } from './product-detail.style';
 
 type TProductDetailProps = {
   product: TOzonProductExtended;
+  isArchived: boolean;
 };
 
 export const ProductDetail = observer(
-  ({ product }: TProductDetailProps): JSX.Element => {
+  ({ product, isArchived }: TProductDetailProps): JSX.Element => {
     return (
       <div className={style.wrapper}>
         <div className={style.title}>{product.name}</div>
@@ -33,7 +35,18 @@ export const ProductDetail = observer(
             />
           </div>
           <div className={style.details.fields.wrapper}>
-            <div className={style.details.fields.header.wrapper}></div>
+            <div className={style.details.fields.header.wrapper}>
+              {isArchived && (
+                <div className={style.details.fields.header.archive.wrapper}>
+                  <ExclamationIcon
+                    className={style.details.fields.header.archive.icon}
+                  />
+                  <span className={style.details.fields.header.archive.text}>
+                    Товар в архиве
+                  </span>
+                </div>
+              )}
+            </div>
             <div className={style.details.fields.list.wrapper}>
               <SimpleField title="Идентификатор" value={product.id} />
               <SimpleField title="Артикул" value={product.offerId} />
