@@ -1,6 +1,7 @@
 import { productService } from 'api';
 import { TOzonProductExtended } from 'api/models';
 import { makeAutoObservable, toJS } from 'mobx';
+import { productsStore } from 'stores/products.store';
 import { fakePromise } from 'utils';
 
 class ProductDetailsStore {
@@ -33,8 +34,13 @@ class ProductDetailsStore {
   }
 
   public async archiveProduct(): Promise<void> {
+    if (!this._product) {
+      return;
+    }
+
     await fakePromise(1000);
     this._isArchived = true;
+    productsStore.addToArchived(this._product.id);
   }
 
   public destroy(): void {}
@@ -65,6 +71,10 @@ class ProductDetailsStore {
       .finally(() => {
         this._isLoading = false;
       });
+  }
+
+  public async unarchivedProduct(): Promise<void> {
+    this._isArchived = false;
   }
 }
 

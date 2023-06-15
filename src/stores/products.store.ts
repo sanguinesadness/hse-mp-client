@@ -3,6 +3,8 @@ import { TOzonProduct } from 'api/models/ozon-product.model';
 import { makeAutoObservable, toJS } from 'mobx';
 
 class ProductsStore {
+  private _archivedIds: Array<number> = [];
+
   private _isError: boolean = false;
 
   public get isError(): boolean {
@@ -21,8 +23,28 @@ class ProductsStore {
     return toJS(this._products);
   }
 
+  public get activeProducts(): Array<TOzonProduct> {
+    return toJS(
+      this._products.filter((product: TOzonProduct) => {
+        return !this._archivedIds.includes(product.id);
+      })
+    );
+  }
+
+  public get archivedProducts(): Array<TOzonProduct> {
+    return toJS(
+      this._products.filter((product: TOzonProduct) => {
+        return this._archivedIds.includes(product.id);
+      })
+    );
+  }
+
   constructor() {
     makeAutoObservable(this);
+  }
+
+  public addToArchived(id: number): void {
+    this._archivedIds = [...this._archivedIds, id];
   }
 
   public destroy(): void {}

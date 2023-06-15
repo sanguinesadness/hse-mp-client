@@ -1,5 +1,5 @@
 import { css } from '@emotion/css';
-import { ColorsSuccessEnum } from 'consts';
+import { ColorsBasicEnum, ColorsSuccessEnum } from 'consts';
 
 export const pageMenuStyle = {
   wrapper: css`
@@ -28,6 +28,10 @@ export const pageMenuStyle = {
     icon: css`
       height: 34px;
       width: 34px;
+
+      * {
+        fill: ${ColorsBasicEnum.PRIMARY};
+      }
     `,
     text: css`
       font-size: 20px;

@@ -1,12 +1,11 @@
 import { ReactComponent as BallotIcon } from 'assets/icons/ballot.svg';
-import { ReactComponent as CaretDownIcon } from 'assets/icons/caret-down.svg';
 import { ReactComponent as PlusSquareIcon } from 'assets/icons/square-plus (1).svg';
 import { ReactComponent as TrashIcon } from 'assets/icons/trash.svg';
-import { ContentLoader } from 'components/content-loader';
 import { PageMenu, TPageMenuItem } from 'components/page-menu';
 import { Separator } from 'components/separator';
 import { observer } from 'mobx-react';
-import { ProductCard } from 'pages/products/components/product-card';
+import { ActiveProductsList } from 'pages/products/components/active-products-list';
+import { ArchivedProductsList } from 'pages/products/components/archived-products-list';
 import { useEffect, useState } from 'react';
 import { productsStore } from 'stores/products.store';
 import { productsPageStyle as style } from './products-page.style';
@@ -37,7 +36,7 @@ const PAGE_MENU_ITEMS: Array<TPageMenuItem<TabsEnum>> = [
 
 export const ProductsPage = observer((): JSX.Element => {
   const [selectedTab, setSelectedTab] = useState<TabsEnum>(TabsEnum.LIST);
-  const { products, isLoading } = productsStore;
+  const { activeProducts, archivedProducts, isLoading } = productsStore;
 
   const handleTabChange = (tab: TabsEnum): void => {
     setSelectedTab(tab);
@@ -55,26 +54,14 @@ export const ProductsPage = observer((): JSX.Element => {
         value={selectedTab}
         onChange={handleTabChange}
       />
-      <div className={style.header.wrapper}>
-        <div className={style.header.titleBlock.wrapper}>
-          <span className={style.header.titleBlock.title}>Мои товары</span>
-          <span className={style.header.titleBlock.description}>
-            Список ваших товаров, участвующих в продаже на маркетплейсе
-          </span>
-        </div>
-        <div className={style.header.filterBlock.wrapper}>
-          <CaretDownIcon className={style.header.filterBlock.icon} />
-          <div className={style.header.filterBlock.text}>Дата добавления</div>
-        </div>
-      </div>
-      {isLoading ? (
-        <ContentLoader />
-      ) : (
-        <div className={style.grid.wrapper}>
-          {products.map((product) => (
-            <ProductCard key={product.id} product={product} />
-          ))}
-        </div>
+      {selectedTab === TabsEnum.LIST && (
+        <ActiveProductsList products={activeProducts} isLoading={isLoading} />
+      )}
+      {selectedTab === TabsEnum.ARCHIVE && (
+        <ArchivedProductsList
+          products={archivedProducts}
+          isLoading={isLoading}
+        />
       )}
       <Separator height={40} />
     </div>

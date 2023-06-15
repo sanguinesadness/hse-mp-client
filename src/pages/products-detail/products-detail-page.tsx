@@ -11,7 +11,7 @@ import { ProductEdit } from 'pages/products-detail/components/product-edit';
 import { ProductDetail } from 'pages/products-detail/product-detail';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { productDetailsStore } from 'stores';
+import { productDetailsStore, productsStore } from 'stores';
 import { productsDetailPageStyle as style } from './products-detail-page.style';
 
 enum TabsEnum {
@@ -43,7 +43,16 @@ export const ProductsDetailPage = observer((): JSX.Element => {
   const navigate = useNavigate();
   const [selectedTab, setSelectedTab] = useState<TabsEnum>(TabsEnum.VIEW);
   const { product, isError, isLoading, isArchived } = productDetailsStore;
+  const { archivedProducts } = productsStore;
   const [isArchiveLoading, setIsArchiveLoading] = useState<boolean>(false);
+
+  const isArchivedResult = Boolean(
+    isArchived || archivedProducts.find((p) => p.id === product?.id)
+  );
+
+  useEffect(() => {
+    void productDetailsStore.unarchivedProduct();
+  }, []);
 
   useEffect(() => {
     const idNum = parseInt(id || '0');
@@ -82,7 +91,9 @@ export const ProductsDetailPage = observer((): JSX.Element => {
         onChange={handleTabChange}
       />
       {(selectedTab === TabsEnum.VIEW || selectedTab === TabsEnum.TO_ARCHIVE) &&
-        product && <ProductDetail product={product} isArchived={isArchived} />}
+        product && (
+          <ProductDetail product={product} isArchived={isArchivedResult} />
+        )}
       {selectedTab === TabsEnum.EDIT && product && (
         <ProductEdit product={product} />
       )}
