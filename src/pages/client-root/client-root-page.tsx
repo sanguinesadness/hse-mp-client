@@ -9,7 +9,7 @@ import {
 } from 'consts';
 import { observer } from 'mobx-react';
 import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { authStore } from 'stores';
 import { clientRootPageStyle as style } from './client-root-page.style';
 
@@ -20,8 +20,10 @@ type TClientRootPageProps = {
 export const ClientRootPage = observer(
   ({ route }: TClientRootPageProps): JSX.Element => {
     const navigate = useNavigate();
+    const location = useLocation();
 
     useEffect(() => {
+      authStore.setInitialRoute(location.pathname);
       if (!authStore.isLoggedIn) {
         navigate(RoutesEnum.AUTH);
       }

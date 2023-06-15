@@ -120,12 +120,12 @@ export const ProductCard = observer(
             <span className={style.footer.weightAmount.amount}>19 шт</span>
           </div>
           <div className={style.footer.status.wrapper}>
-            <span className={style.footer.status.name}>
+            <div className={style.footer.status.name}>
               {product.status.stateName}
-            </span>
-            <span className={style.footer.status.description}>
+            </div>
+            <div className={style.footer.status.description}>
               {product.status.stateDescription}
-            </span>
+            </div>
           </div>
         </div>
       </div>

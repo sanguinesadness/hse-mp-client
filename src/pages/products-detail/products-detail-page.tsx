@@ -1,13 +1,15 @@
 import { ReactComponent as EyeIcon } from 'assets/icons/eye.svg';
 import { ReactComponent as TextIcon } from 'assets/icons/text.svg';
 import { ReactComponent as TrashIcon } from 'assets/icons/trash.svg';
-import { ContextualNotification } from 'components/contextual-notification';
+import { ContentLoader } from 'components/content-loader';
 import { PageMenu, TPageMenuItem } from 'components/page-menu';
+import { RoutesEnum } from 'consts';
 import { observer } from 'mobx-react';
-import { PhotoViewer } from 'pages/products-detail/components/photo-viewer';
-import { useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { productsStore } from 'stores';
+import { ProductEdit } from 'pages/products-detail/components/product-edit';
+import { ProductDetail } from 'pages/products-detail/product-detail';
+import { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { productDetailsStore } from 'stores';
 import { productsDetailPageStyle as style } from './products-detail-page.style';
 
 enum TabsEnum {
@@ -36,15 +38,25 @@ const PAGE_MENU_ITEMS: Array<TPageMenuItem<TabsEnum>> = [
 
 export const ProductsDetailPage = observer((): JSX.Element => {
   const { id } = useParams();
-  const product = productsStore.getProduct(parseInt(id ?? '', 10));
+  const navigate = useNavigate();
   const [selectedTab, setSelectedTab] = useState<TabsEnum>(TabsEnum.VIEW);
+  const { product, isError, isLoading } = productDetailsStore;
+
+  useEffect(() => {
+    const idNum = parseInt(id || '0');
+    productDetailsStore.init(idNum);
+  }, [id]);
 
   const handleTabChange = (tab: TabsEnum): void => {
     setSelectedTab(tab);
   };
 
-  if (!product) {
-    return <div>Неизвестный Id продукта</div>;
+  if (isError) {
+    navigate(RoutesEnum.PRODUCTS);
+  }
+
+  if (isLoading) {
+    return <ContentLoader />;
   }
 
   return (
@@ -54,21 +66,12 @@ export const ProductsDetailPage = observer((): JSX.Element => {
         items={PAGE_MENU_ITEMS}
         onChange={handleTabChange}
       />
-      <div className={style.body.wrapper}>
-        <div className={style.body.title}>{product.name}</div>
-        {product.status.stateTooltip && (
-          <ContextualNotification text={product.status.stateTooltip} />
-        )}
-        <div className={style.body.details.wrapper}>
-          <div className={style.body.details.photoViewer.wrapper}>
-            <PhotoViewer
-              primaryImage={product.primaryImage}
-              secondaryImages={product.images}
-            />
-          </div>
-          <div className={style.body.details.fields.wrapper}></div>
-        </div>
-      </div>
+      {selectedTab === TabsEnum.VIEW && product && (
+        <ProductDetail product={product} />
+      )}
+      {selectedTab === TabsEnum.EDIT && product && (
+        <ProductEdit product={product} />
+      )}
     </div>
   );
 });

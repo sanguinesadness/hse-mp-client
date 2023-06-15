@@ -5,7 +5,7 @@ export const photoViewerStyle = {
   wrapper: css`
     display: flex;
     flex-direction: row;
-    gap: 20px;
+    gap: 30px;
   `,
   list: {
     wrapper: css`
@@ -40,8 +40,8 @@ export const photoViewerStyle = {
   },
   primary: {
     wrapper: css`
-      width: 340px;
-      height: 340px;
+      width: 400px;
+      height: 400px;
       display: flex;
       align-items: center;
       justify-content: center;

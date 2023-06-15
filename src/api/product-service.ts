@@ -1,4 +1,8 @@
-import { TProductWithCompetitors, TTopProduct } from 'api/models';
+import {
+  TOzonProductExtended,
+  TProductWithCompetitors,
+  TTopProduct
+} from 'api/models';
 import { TOzonProduct } from 'api/models/ozon-product.model';
 import { ApiEndpoints } from 'consts';
 import { snakeToCamel } from 'utils';
@@ -14,6 +18,14 @@ class ProductService extends RootRequestService {
 
   public async downloadTopProducts(): Promise<void> {
     return this.downloadFile(ApiEndpoints.PRODUCT.DOWNLOAD_TOP, 'top_products');
+  }
+
+  public async fetchProductInfo(id: number): Promise<TOzonProductExtended> {
+    const resp = await this.postPromise<{ productInfo: TOzonProductExtended }>(
+      ApiEndpoints.PRODUCT.INFO,
+      { product_id: id }
+    );
+    return snakeToCamel(resp.productInfo);
   }
 
   public async fetchProductsDetailed(): Promise<Array<TOzonProduct>> {
