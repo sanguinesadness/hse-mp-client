@@ -1,6 +1,8 @@
 import { productService } from 'api';
+import { TOzonProductExtended } from 'api/models';
 import { TOzonProduct } from 'api/models/ozon-product.model';
 import { makeAutoObservable, toJS } from 'mobx';
+import { fakePromise } from 'utils';
 
 class ProductsStore {
   private _archivedIds: Array<number> = [];
@@ -41,6 +43,11 @@ class ProductsStore {
 
   constructor() {
     makeAutoObservable(this);
+  }
+
+  public async addProduct(product: TOzonProductExtended): Promise<void> {
+    await fakePromise(3000);
+    this._products = [product, ...this._products];
   }
 
   public addToArchived(id: number): void {

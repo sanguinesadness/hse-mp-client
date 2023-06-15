@@ -1,6 +1,6 @@
 import { css } from '@emotion/css';
 
-export const productEditStyle = {
+export const addProductStyle = {
   wrapper: css`
     display: flex;
     flex-direction: column;

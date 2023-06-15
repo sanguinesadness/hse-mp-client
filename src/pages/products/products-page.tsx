@@ -5,6 +5,7 @@ import { PageMenu, TPageMenuItem } from 'components/page-menu';
 import { Separator } from 'components/separator';
 import { observer } from 'mobx-react';
 import { ActiveProductsList } from 'pages/products/components/active-products-list';
+import { AddProduct } from 'pages/products/components/add-product';
 import { ArchivedProductsList } from 'pages/products/components/archived-products-list';
 import { useEffect, useState } from 'react';
 import { productsStore } from 'stores/products.store';
@@ -54,6 +55,7 @@ export const ProductsPage = observer((): JSX.Element => {
         value={selectedTab}
         onChange={handleTabChange}
       />
+      {selectedTab === TabsEnum.ADD && <AddProduct />}
       {selectedTab === TabsEnum.LIST && (
         <ActiveProductsList products={activeProducts} isLoading={isLoading} />
       )}

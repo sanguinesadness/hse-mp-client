@@ -3,7 +3,6 @@ import { Button } from 'components/button';
 import { InputImage } from 'components/image-input';
 import { InputField } from 'components/input-field';
 import { MultipleImagesInput } from 'components/multiple-images-input';
-import { Separator } from 'components/separator';
 import { ButtonTypes } from 'consts';
 import { observer } from 'mobx-react';
 import { ReactNode, useState } from 'react';
@@ -15,7 +14,7 @@ type TProductEditProps = {
   product: TOzonProductExtended;
 };
 
-const InputBlock = ({
+export const InputBlock = ({
   title,
   children
 }: {
@@ -187,7 +186,6 @@ export const ProductEdit = observer(
             Сохранить
           </Button>
         </div>
-        <Separator height={60} />
       </div>
     );
   }

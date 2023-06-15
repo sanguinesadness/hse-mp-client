@@ -61,6 +61,7 @@ export const productCardStyle = {
       title: {
         wrapper: css`
           max-width: 100%;
+          min-width: 295px;
         `,
         self: css`
           max-width: 100%;
