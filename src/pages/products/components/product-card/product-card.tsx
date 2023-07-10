@@ -5,7 +5,7 @@ import { ReactComponent as CrossIcon } from 'assets/icons/cross.svg';
 import { RoutesEnum } from 'consts';
 import { useMouseHover } from 'hooks';
 import { observer } from 'mobx-react';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import LinesEllipsis from 'react-lines-ellipsis';
 import { useNavigate } from 'react-router-dom';
 import { formatDate } from 'utils';
@@ -36,6 +36,7 @@ const CrossIconRed = () => (
 export const ProductCard = observer(
   ({ product }: TProductCardProps): JSX.Element => {
     const navigate = useNavigate();
+    const [amount, setAmount] = useState(Math.floor(Math.random() * 20));
 
     const isFbsEnabled = !!product.sources.find(
       ({ source }: any) => source === 'fbs'
@@ -117,7 +118,9 @@ export const ProductCard = observer(
             <span className={style.footer.weightAmount.weight}>
               {product.volumeWeight} кг
             </span>
-            <span className={style.footer.weightAmount.amount}>19 шт</span>
+            <span className={style.footer.weightAmount.amount}>
+              {amount} шт
+            </span>
           </div>
           <div className={style.footer.status.wrapper}>
             <div className={style.footer.status.name}>
